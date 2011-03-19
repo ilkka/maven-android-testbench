@@ -21,7 +21,7 @@ import org.apache.http.*;
 @RunWith(RobolectricTestRunner.class)
 public class HelloAndroidActivityTest {
 
-	public ArgumentMatcher<HttpGet> getWithUri(final String uri) {
+	public ArgumentMatcher<HttpGet> isHttpGetFor(final String uri) {
 		return new ArgumentMatcher<HttpGet>() {
 			public boolean matches(Object request) {
 				return ((HttpGet)request).getURI().toASCIIString().equals(uri);
@@ -38,7 +38,7 @@ public class HelloAndroidActivityTest {
 		activity.setHttpClient(mockClient);
 		activity.onCreate(null);
 
-		verify(mockClient).execute(argThat(getWithUri("http://www.example.com/")));
+		verify(mockClient).execute(argThat(isHttpGetFor("http://www.example.com/")));
 		assertThat(activity.response(), notNullValue());
 		assertEquals(activity.response().getStatusLine().getStatusCode(), 200);
 	}
