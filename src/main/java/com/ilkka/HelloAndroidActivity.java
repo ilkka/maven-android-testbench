@@ -25,8 +25,12 @@ public class HelloAndroidActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		Log.i(TAG, "onCreate");
 		setContentView(R.layout.main);
-		if (mClient != null) {
-			mClient.execute(new HttpGet("http://www.example.com"));
+		try {
+			if (mClient != null) {
+				mClient.execute(new HttpGet("http://www.example.com"));
+			}
+		} catch(java.io.IOException ioe) {
+			// nop
 		}
 	}
 
