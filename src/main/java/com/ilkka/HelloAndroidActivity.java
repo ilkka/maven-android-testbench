@@ -13,6 +13,7 @@ public class HelloAndroidActivity extends Activity {
 	private static String TAG = "testbench";
 
 	private AndroidHttpClient mClient;
+	private HttpResponse mResponse;
 
 	/**
 	 * Called when the activity is first created.
@@ -27,7 +28,7 @@ public class HelloAndroidActivity extends Activity {
 		setContentView(R.layout.main);
 		try {
 			if (mClient != null) {
-				mClient.execute(new HttpGet("http://www.example.com"));
+				mResponse = mClient.execute(new HttpGet("http://www.example.com/"));
 			}
 		} catch(java.io.IOException ioe) {
 			// nop
@@ -40,6 +41,10 @@ public class HelloAndroidActivity extends Activity {
 	 */
 	public void setHttpClient(AndroidHttpClient client) {
 		mClient = client;
+	}
+
+	public HttpResponse response() {
+		return mResponse;
 	}
 }
 
