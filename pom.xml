@@ -18,9 +18,9 @@
 
   <dependencies>
     <dependency>
-      <groupId>mockit</groupId>
-      <artifactId>jmockit</artifactId>
-      <version>0.999.8</version>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-all</artifactId>
+      <version>1.8.5</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -74,10 +74,6 @@
 
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-          <argLine>-javaagent:${settings.localRepository}/mockit/jmockit/0.999.8/jmockit-0.999.8.jar</argLine>
-          <useSystemClassLoader>true</useSystemClassLoader>
-        </configuration>
       </plugin>
     </plugins>
   </build>
