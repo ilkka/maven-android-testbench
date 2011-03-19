@@ -23,6 +23,8 @@ public class HelloAndroidActivityTest {
 	public void trueShouldNotBeFalse() throws Exception {
 		AndroidHttpClient mockClient = mock(AndroidHttpClient.class);
 		when(mockClient.execute(new HttpGet("http://www.example.com/"))).thenReturn(new BasicHttpResponse(new ProtocolVersion("HTTP", 1, 1), 200, "OK"));
-		assertEquals(new String("x").charAt(0), 'x');
+		HelloAndroidActivity activity = new HelloAndroidActivity();
+		activity.setHttpClient(mockClient);
+		activity.onCreate(null);
 	}
 }
