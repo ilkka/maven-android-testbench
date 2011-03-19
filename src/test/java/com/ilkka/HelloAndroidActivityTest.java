@@ -10,6 +10,7 @@ import static org.hamcrest.core.IsNot.*;
 import static org.hamcrest.core.IsEqual.*;
 import static org.hamcrest.core.IsNull.*;
 
+import org.mockito.*;
 import static org.mockito.Mockito.*;
 
 import android.net.http.*;
@@ -20,6 +21,14 @@ import org.apache.http.*;
 @RunWith(RobolectricTestRunner.class)
 public class HelloAndroidActivityTest {
 
+	public ArgumentMatcher<HttpGet> getWithUri(final String uri) {
+		return new ArgumentMatcher<HttpGet>() {
+			public boolean matches(Object request) {
+				return ((HttpGet)request).getURI().toASCIIString().equals(uri);
+			}
+		};
+	}
+
 	@Test
 	public void shouldGetStuffFromInternet() throws Exception {
 		AndroidHttpClient mockClient = mock(AndroidHttpClient.class);
@@ -29,7 +38,7 @@ public class HelloAndroidActivityTest {
 		activity.setHttpClient(mockClient);
 		activity.onCreate(null);
 
-		verify(mockClient).execute(any(HttpUriRequest.class));
+		verify(mockClient).execute(argThat(getWithUri("http://www.example.com/")));
 		assertThat(activity.response(), notNullValue());
 		assertEquals(activity.response().getStatusLine().getStatusCode(), 200);
 	}
